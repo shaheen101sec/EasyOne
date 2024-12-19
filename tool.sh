@@ -16,7 +16,7 @@ NC='\033[0m' # No Color
 # Function to display the banner
 banner() {
     echo -e "${CYAN}========================================"
-    echo -e "${BOLD}${PURPLE}shaheen101sec Advanced Vulnerability Scanner${NC}"
+    echo -e "${BOLD}${PURPLE}shaheen101sec 404 Error Vulnerability Scanner${NC}"
     echo -e "${CYAN}========================================${NC}"
 }
 
@@ -51,7 +51,7 @@ scan_url() {
     # Keywords to check for in the response
     local keywords=(
         "DB_USERNAME" "DB_PASSWORD" "APP_KEY" "APP_ENV"
-        "NotFoundHttpException" "HTTP_HOST"
+        "NotFoundHttpException" "HTTP_HOST" "HTTP_AUTHORIZATION" "SSL_TLS_SNI" "HTTP_ACCEPT_ENCODING" "PATH" "HTTP_USER_AGENT"
         "Environment & details" "Symfony\\Component" "ErrorException"
     )
 
@@ -89,6 +89,7 @@ main() {
     local single_url=""
     local proxy=""
     local threads=5
+    local count=0
 
     while [[ "$#" -gt 0 ]]; do
         case $1 in
@@ -127,12 +128,22 @@ main() {
     # Display banner
     banner
 
+    # Ensure output file is defined
+    if [[ -z "$output_file" ]]; then
+        output_file="results.txt"
+        echo -e "${YELLOW}[INFO] No output file specified. Using default: $output_file${NC}"
+    fi
+
+    # Create or clear the output file
+    > "$output_file"
+
+    # Redirect outputs to both screen and file
+    exec > >(tee -a "$output_file") 2>&1
+
     # Scan a single URL
     if [[ -n "$single_url" ]]; then
         echo -e "${CYAN}[+] Starting single URL scan...${NC}"
-        if scan_url "$single_url" "$proxy" && [[ -n "$output_file" ]]; then
-            echo "$single_url: VULNERABLE" >> "$output_file"
-        fi
+        scan_url "$single_url" "$proxy"
     fi
 
     # Scan multiple URLs from a file
@@ -145,12 +156,17 @@ main() {
         echo -e "${CYAN}[+] Starting scan for URLs in file: $urls_file${NC}"
 
         # Multithreaded scanning logic
-        cat "$urls_file" | xargs -n 1 -P "$threads" -I {} bash -c "scan_url '{}' '$proxy' && echo '{}: VULNERABLE' >> $output_file"
+        while IFS= read -r url; do
+            scan_url "$url" "$proxy" &
+            ((count++))
+            if ((count % threads == 0)); then
+                wait
+            fi
+        done < "$urls_file"
+        wait
     fi
 
-    if [[ -n "$output_file" ]]; then
-        echo -e "${PURPLE}[*] Results saved to: $output_file${NC}"
-    fi
+    echo -e "${PURPLE}[*] Results saved to: $output_file${NC}"
 }
 
 # Start the script

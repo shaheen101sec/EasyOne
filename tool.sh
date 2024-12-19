@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # shaheen101sec Advanced Vulnerability Scanner
-# Author: HackerGPT
+# Author: shaheen101sec
 
 # Colors for beautification
 RED='\033[0;31m'

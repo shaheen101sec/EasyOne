@@ -3,7 +3,6 @@
 
 **EasyOne** is a powerful, easy-to-use Python-based tool designed to scan for sensitive information exposure via 404 error from the developers. This tool helps identify potential vulnerabilities by analyzing the response of non-existent pages for sensitive keywords.
 
----
 
 ## 🚀 Features
 
@@ -122,5 +121,3 @@ If you encounter any issues or have feature requests, please open an [issue](htt
 - Developed by [shaheen101sec](https://github.com/shaheen101sec).
 - Inspired by the need for effective and efficient vulnerability scanners.
 ```
-
----

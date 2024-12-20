@@ -1,4 +1,3 @@
-```markdown
 # EasyOne:A 404 Error Vulnerability Discovered by me  ( Scanner )
 
 **EasyOne** is a powerful, easy-to-use Python-based tool designed to scan for sensitive information exposure via 404 error from the developers. This tool helps identify potential vulnerabilities by analyzing the response of non-existent pages for sensitive keywords.

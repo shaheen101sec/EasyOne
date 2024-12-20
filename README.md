@@ -1,110 +1,129 @@
-### README.md
-
 ```markdown
-# shaheen101sec Advanced Vulnerability Scanner
+# EasyOne:A 404 Error Vulnerability Discovered by me  ( Scanner )
 
-A powerful and efficient Bash-based vulnerability scanner designed for ethical hackers and penetration testers. This tool helps in identifying common misconfigurations and exposed sensitive information in web applications. It is lightweight, easy to use, and provides results directly on the screen as well as in a file for post-analysis.
+[![Python](https://img.shields.io/badge/Python-3.x-blue.svg)](https://www.python.org/)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
----
-
-## Features
-- **Single URL Scanning**: Analyze individual URLs for vulnerabilities.
-- **Batch URL Scanning**: Scan multiple URLs from a file.
-- **Proxy Support**: Use HTTP proxies for scans.
-- **Customizable Threads**: Control the number of concurrent scans for faster results.
-- **Detailed Reporting**: Save the scan results to a specified file.
-- **Keyword-Based Vulnerability Detection**: Searches for sensitive information like database credentials, environment keys, and stack traces.
+**EasyOne** is a powerful, easy-to-use Python-based tool designed to scan for sensitive information exposure via 404 error from the developers. This tool helps identify potential vulnerabilities by analyzing the response of non-existent pages for sensitive keywords.
 
 ---
 
-## Prerequisites
-- **Bash**: Ensure Bash is installed and set as the default shell.
-- **cURL**: Required for making HTTP requests.
-- **Linux/MacOS**: Compatible with Unix-based operating systems.
+## 🚀 Features
+
+- **Scan Single or Multiple URLs**:
+  - Quickly scan a single URL for vulnerabilities.
+  - Bulk scan multiple URLs from a file.
+
+- **Keyword Matching**:
+  - Detects sensitive keywords like `DB_USERNAME`, `DB_PASSWORD`, `APP_KEY`, and more.
+
+- **Proxy Support**:
+  - Specify an HTTP or HTTPS proxy for the requests.
+
+- **Output Saving**:
+  - Save the scan results to a file for further analysis.
+
+- **Simple and Intuitive**:
+  - Easy-to-use command-line interface (CLI).
 
 ---
 
-## Installation
-Clone the repository and navigate to the script directory:
+## 📂 Repository Link
+
+**GitHub Repository**: [https://github.com/shaheen101sec/EasyOne.git](https://github.com/shaheen101sec/EasyOne.git)
+
+---
+
+## 🛠️ Installation
+
+1. **Clone the Repository**:
+   ```bash
+   git clone https://github.com/shaheen101sec/EasyOne.git
+   cd EasyOne
+   ```
+
+2. **Install Dependencies**:
+   Ensure you have Python 3.x installed. Then, install the required packages:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+---
+
+## 🖥️ Usage
+
+### Command Syntax
 ```bash
-git clone https://github.com/shaheen101sec/EasyOne.git
-cd vuln-scanner
+python3 tool.py [OPTIONS]
 ```
 
-Make the script executable:
-```bash
-chmod +x tool.sh
-```
+### Options:
+| Option               | Description                                                    |
+|----------------------|----------------------------------------------------------------|
+| `-u, --url <URL>`    | Scan a single URL for vulnerabilities.                         |
+| `-U, --urls <file>`  | Scan multiple URLs from a file (one URL per line).             |
+| `-o, --output <file>`| Save results to the specified file.                            |
+| `-p, --proxy <proxy>`| Use an HTTP/HTTPS proxy (e.g., `http://127.0.0.1:8080`).       |
+| `-h, --help`         | Display the help message and usage information.               |
 
 ---
-
-## Usage
-Run the script with various options as described below:
-
-### Command-Line Options
-| Option                | Description                                                      |
-|-----------------------|------------------------------------------------------------------|
-| `-u, --url <URL>`     | Scan a single URL for vulnerabilities.                          |
-| `-U, --urls <file>`   | Scan multiple URLs listed in a file (one URL per line).          |
-| `-o, --output <file>` | Specify the file to save scan results.                          |
-| `-p, --proxy <proxy>` | Use an HTTP proxy (e.g., `http://127.0.0.1:8080`).               |
-| `-t, --threads <num>` | Number of concurrent threads for batch scans (default: 5).       |
-| `-h, --help`          | Display help information.                                       |
 
 ### Examples
 
-#### Single URL Scan
+#### Scan a Single URL
 ```bash
-./tool.sh -u https://example.com -o results.txt
+python3 tool.py -u https://example.com
 ```
 
-#### Batch URL Scan
+#### Scan Multiple URLs from a File
 ```bash
-./tool.sh -U urls.txt -o results.txt
+python3 tool.py -U urls.txt
 ```
 
-#### Using Proxy
+#### Save Scan Results to a File
 ```bash
-./tool.sh -u https://example.com -p http://127.0.0.1:8080 -o results.txt
+python3 tool.py -U urls.txt -o results.txt
 ```
 
-#### Multithreaded Scanning
+#### Use a Proxy for Scanning
 ```bash
-./tool.sh -U urls.txt -t 10 -o results.txt
+python3 tool.py -u https://example.com -p http://127.0.0.1:8080
 ```
 
 ---
 
-## Output
-- **Screen Output**: Real-time progress and results are displayed in a color-coded format.
-- **File Output**: Scan results are saved in the specified file (default: `results.txt`).
+## 🛡️ Keywords Searched
 
-### Color Codes:
-- **Green**: Vulnerability found.
-- **Red**: Not vulnerable.
-- **Yellow**: Full response snippet for detected vulnerabilities.
-- **Blue**: General scan status messages.
-
----
-
-## How It Works
-1. Fetches the HTTP response for the specified URL(s) using `curl`.
-2. Searches for sensitive keywords like `DB_USERNAME`, `DB_PASSWORD`, `APP_KEY`, and stack traces in the response.
-3. Identifies potential vulnerabilities based on the presence of these keywords.
-4. Outputs results to both the screen and a file for further analysis.
-
----
-
-## Disclaimer
-This tool is designed for **ethical hacking** and **educational purposes** only. Use it exclusively on systems you own or have explicit permission to test. The authors are not responsible for any misuse.
+The tool searches for the following sensitive keywords in the response from the server:
+- `DB_USERNAME`
+- `DB_PASSWORD`
+- `APP_KEY`
+- `APP_ENV`
+- `NotFoundHttpException`
+- `HTTP_HOST`
+- `HTTP_AUTHORIZATION`
+- `SSL_TLS_SNI`
+- `HTTP_ACCEPT_ENCODING`
+- `PATH`
+- `HTTP_USER_AGENT`
+- `Environment & details`
+- `Symfony\Component`
+- `ErrorException`
 
 ---
 
-## Contributing
-We welcome contributions! Please fork the repository, make your changes, and submit a pull request. Ensure your changes follow the best coding practices.
+---
+
+## 🐛 Issues
+
+If you encounter any issues or have feature requests, please open an [issue](https://github.com/shaheen101sec/EasyOne/issues) in the repository.
 
 ---
 
-## Authors
-Developed with ❤️ by [shaheen101sec](https://github.com/shaheen101sec)
+## 💡 Acknowledgments
+
+- Developed by [shaheen101sec](https://github.com/shaheen101sec).
+- Inspired by the need for effective and efficient vulnerability scanners.
 ```
+
+---
